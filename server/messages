@@ -1,0 +1,22 @@
+class TypeMessage: 
+    
+    @stataicmethod 
+    def initm(): 
+        return 'init' 
+    
+    @staticmethod
+    def readm(): 
+        return 'read' 
+    
+    @staticmethod
+    def writem(): 
+        return 'write'
+    
+    @staticmethod
+    def procstep()
+        return 'process_step'
+    
+    @statimethod
+    def stopm(): 
+        return 'stop' 
+    
