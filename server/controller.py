@@ -38,6 +38,7 @@ class Service:
             
             while 1:
                 try:
+                    print("aspetto data...") 
                     raw_data = self.conn.recv(32754).strip()
                     if not raw_data: 
                         self.conn.close
@@ -53,13 +54,16 @@ class Service:
                     
                     if msg['type'] == SMessage.hellom():
                         data = msg['data'] 
-                        self.ectrl_hello(data) 
-                        self.conn.sendall('tutto ok') 
+                        self.ectrl_hello(data)
+                        print("INVIO TUTTO_OK SIGNAL") 
+                        self.conn.sendall(b'tutto ok') 
                         
-                    elif msg['type'] == SMessage.stopm(): 
+                    if msg['type'] == SMessage.stopm(): 
                         info = msg['data'] 
                         self.ectrl_close(info)
                         break
+                    
+                    conn.sendall(b'OK') 
                         
                 except:
                     break 
