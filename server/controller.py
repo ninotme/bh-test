@@ -51,26 +51,39 @@ class Service:
                     #dispatch dei messaggi 
                     msg = json.loads(raw_data) 
                     print(f"######DEBUG: {msg}")
+
+                    if msg['type'] == SMessage.read():
+
                     
                     if msg['type'] == SMessage.hellom():
                         data = msg['data'] 
                         self.ectrl_hello(data)
                         print("INVIO TUTTO_OK SIGNAL") 
-                        self.conn.sendall(b'tutto ok') 
+                        self.__send_data_to_client()
                         
                     if msg['type'] == SMessage.stopm(): 
                         info = msg['data'] 
                         self.ectrl_close(info)
                         break
                     
-                    conn.sendall(b'OK') 
+                    self.conn.sendall(b'OK')
                         
                 except:
-                    break 
-        
-        
+                    break
+
+    def __send_data_to_client(self, conn, typem, data):
+        write_data_msg = {
+            "type": typem,
+            "data": data
+        }
+        data = json.dumps(write_data_msg)
+        bData = bytes(data)
+
+        print('DEBUG PACKET INFO: ', bData)
+
+        conn.sendall(bData)
 
 m = Service() 
-m.host('localhost', 9997) 
+m.host('localhost', 9990)
 
 
