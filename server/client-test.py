@@ -1,5 +1,4 @@
-# test client for controller interaction 
-
+# test client for controller interaction
 import socket 
 from messages import SMessage
 import json
